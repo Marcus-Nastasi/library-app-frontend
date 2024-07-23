@@ -1,39 +1,27 @@
 import { CSSProperties } from "react";
 
-export default function Login() {
+import Cookie from "./lib/Cookie";
 
+export default function Login() {
+   
    const handleLogin = async (e: any) => {
       e.preventDefault();
-
       const url = `http://localhost:8080/api/auth/login`;
       const [ cpf, password ]: any = [ document.getElementById('cpf'), document.getElementById('password') ];
-
       try {
-
          const request: Response = await fetch(url, {
             method: 'post',
             body: JSON.stringify({ cpf: cpf.value, password: password.value }),
             headers: new Headers({ 'Content-Type': 'application/json' })
          });
-
          const parsed = await request.json();
-
-         document.cookie = `libToken=${parsed.data[0].token}; ${getCookieExpirationString(7)}; path=/ `;
-         document.cookie = `cpf=${parsed.data[0].cpf}; ${getCookieExpirationString(7)}; path=/`;
-
+         Cookie.create('libToken', parsed.data[0].token, 7);
+         Cookie.create('cpf', parsed.data[0].cpf, 7);
          window.open('/', '_self');
-
       } catch(e: any) {
          console.log(e.message);
       }
    };
-
-   function getCookieExpirationString(days: number): string {
-      var date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      var expires = "expires=" + date.toUTCString();
-      return expires;
-   }
 
    return(
       <div className="min-h-screen max-h-fit w-screen flex justify-center items-center">
