@@ -9,16 +9,16 @@ export default function App() {
 
    useEffect(() => {
       // books fetch
-      const getAllBooks = async () => {
-         const url = 'http://localhost:8080/api/books/get';
-         const token = Cookie.getCookie('libToken');
-         if (token == null) return window.open('/login', "_self");
+      const getAllBooks = async (): Promise<void> => {
+         const url: string = 'http://localhost:8080/api/books/get';
+         const token: string | null = Cookie.getCookie('libToken');
+         if (token == null) window.open('/login', "_self");
          try {
             const request: Response = await fetch(url, {
                method: 'get',
                headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
             });
-            const response = await request.json();
+            const response: Array<iBook> = await request.json();
             setBooks(response);
          } catch(e: any) {
             console.log(e);
@@ -30,7 +30,7 @@ export default function App() {
    return (
       <>
          <div className="w-11/12 min-h-screen max-h-fit flex flex-wrap justify-center items-center">
-            { books && books.map((b: iBook) => <BookCard {...b} />) || 'error' }
+            { books && books.map((b: iBook) => <BookCard {...b} />) || 'loading...' }
          </div>
       </>
    )

@@ -1,5 +1,5 @@
 export default class Cookie {
-
+   
    public static getCookie(name: string): string | null {
       var nameEQ: string = name + "=";
       var ca: Array<string> = document.cookie.split(';');
@@ -17,8 +17,8 @@ export default class Cookie {
       return expires;
    }
 
-   public static create(name: string, data: string, expiration: number) {
-      document.cookie = `${name}=${data}; ${this.getCookieExpirationString(expiration)}; path=/ `;
+   public static create(key: string, value: string, expiration: number): void {
+      document.cookie = `${key}=${value}; ${this.getCookieExpirationString(expiration)}; path=/`;
    }
 }
 

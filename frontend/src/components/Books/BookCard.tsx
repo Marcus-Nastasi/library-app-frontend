@@ -2,7 +2,7 @@ import iBook from "../interfaces/iBook";
 
 export default function BookCard(book: iBook) {
    return(
-      <div>
+      <div key={book.id}>
          <p>{book.id}</p>
          <p>{book.author}</p>
          <p>{book.name}</p>
