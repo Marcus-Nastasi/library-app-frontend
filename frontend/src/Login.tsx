@@ -16,8 +16,8 @@ export default function Login() {
             headers: new Headers({ 'Content-Type': 'application/json' })
          });
          const parsed: ILogin = await request.json();
-         Cookie.create('libToken', parsed.data[0].token, 7);
-         Cookie.create('cpf', parsed.data[0].cpf, 7);
+         Cookie.create('libToken', parsed.data[0].token, 12);
+         Cookie.create('cpf', parsed.data[0].cpf, 12);
          window.open('/', '_self');
       } catch(e: any) {
          console.log(e.message);
@@ -71,6 +71,4 @@ const btnStyle: CSSProperties = {
    boxShadow: '3px 3px 2px 0.2px',
    border: '1.7px solid black'
 };
-
-
 

@@ -17,9 +17,7 @@ class App {
 
    private middlewares() {
       this.app.use(express.json());
-
       this.app.use(express.static(path.join(__dirname, '../../frontend/dist')));
-
       this.app.engine('html', require('ejs').renderFile);
       this.app.set('views', path.join(__dirname, '../../frontend/dist'));
       this.app.set('view engine', 'html');
@@ -33,7 +31,5 @@ class App {
       this.app.listen(3000, () => console.log('http://localhost:3000'));
    }
 }
-
 new App().listen();
-
 

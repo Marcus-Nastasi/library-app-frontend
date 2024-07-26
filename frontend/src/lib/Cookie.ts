@@ -12,7 +12,7 @@ export default class Cookie {
 
    private static getCookieExpirationString(days: number): string {
       const date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + (days * 60 * 60 * 1000)); // Config to hours. For days multiply 24.
       return "expires=" + date.toUTCString();
    }
 
@@ -20,5 +20,4 @@ export default class Cookie {
       document.cookie = `${key}=${value}; ${this.getCookieExpirationString(expiration)}; path=/`;
    }
 }
-
 
