@@ -1,12 +1,13 @@
 import { CSSProperties } from "react";
 
 import Cookie from "./lib/Cookie";
+import ILogin from "./components/interfaces/ILogin.ts";
 
 export default function Login() {
    
-   const handleLogin = async (e: any) => {
+   const handleLogin = async (e: any): Promise<void> => {
       e.preventDefault();
-      const url = `http://localhost:8080/api/auth/login`;
+      const url: string = `http://localhost:8080/api/auth/login`;
       const [ cpf, password ]: any = [ document.getElementById('cpf'), document.getElementById('password') ];
       try {
          const request: Response = await fetch(url, {
@@ -14,7 +15,7 @@ export default function Login() {
             body: JSON.stringify({ cpf: cpf.value, password: password.value }),
             headers: new Headers({ 'Content-Type': 'application/json' })
          });
-         const parsed = await request.json();
+         const parsed: ILogin = await request.json();
          Cookie.create('libToken', parsed.data[0].token, 7);
          Cookie.create('cpf', parsed.data[0].cpf, 7);
          window.open('/', '_self');
