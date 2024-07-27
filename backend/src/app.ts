@@ -3,8 +3,9 @@ import express, { Application } from 'express';
 import path from 'path';
 
 import router from './routes/routes';
+import IApp from "./Interfaces/IApp";
 
-class App {
+class App implements IApp {
 
    app: Application;
 

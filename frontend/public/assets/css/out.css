@@ -566,20 +566,12 @@ video {
   margin-top: 0.25rem;
 }
 
-.mt-40 {
-  margin-top: 10rem;
-}
-
 .flex {
   display: flex;
 }
 
 .h-96 {
   height: 24rem;
-}
-
-.h-5\/6 {
-  height: 83.333333%;
 }
 
 .max-h-fit {
@@ -595,6 +587,10 @@ video {
   min-height: 100vh;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .w-28 {
   width: 7rem;
 }
@@ -608,24 +604,12 @@ video {
   width: fit-content;
 }
 
-.w-screen {
-  width: 100vw;
-}
-
-.w-1\/2 {
-  width: 50%;
-}
-
-.w-9\/12 {
-  width: 75%;
-}
-
-.w-8\/12 {
-  width: 66.666667%;
-}
-
 .w-full {
   width: 100%;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .flex-col {
@@ -679,29 +663,16 @@ video {
   background-color: rgb(163 163 163 / var(--tw-bg-opacity));
 }
 
-.bg-slate-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
-}
-
 .p-1 {
   padding: 0.25rem;
 }
 
-.p-2 {
-  padding: 0.5rem;
+.p-10 {
+  padding: 2.5rem;
 }
 
 .p-4 {
   padding: 1rem;
-}
-
-.p-5 {
-  padding: 1.25rem;
-}
-
-.p-10 {
-  padding: 2.5rem;
 }
 
 .px-1 {
@@ -719,12 +690,12 @@ video {
   padding-bottom: 0.125rem;
 }
 
-.pr-10 {
-  padding-right: 2.5rem;
+.pb-20 {
+  padding-bottom: 5rem;
 }
 
-.text-end {
-  text-align: end;
+.pr-10 {
+  padding-right: 2.5rem;
 }
 
 .indent-1 {
@@ -736,8 +707,17 @@ video {
   line-height: 2.25rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .hover\:bg-neutral-200:hover {
@@ -748,10 +728,4 @@ video {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-
-@media (min-width: 1024px) {
-  .lg\:w-11\/12 {
-    width: 91.666667%;
-  }
 }

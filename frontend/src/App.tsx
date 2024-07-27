@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import BookCard from "./components/Books/BookCard";
 import Cookie from "./lib/Cookie";
 import IBook from "./components/interfaces/IBook.ts";
 
 export default function App() {
-   const [ books, setBooks ] = useState<Array<IBook>>();
+   const [ books, setBooks ] = useState<Array<IBook> | undefined>();
 
    useEffect(() => {
       // fetching books
@@ -28,12 +28,16 @@ export default function App() {
    }, []);
 
    return (
-      <div className={`flex justify-center items-center w-screen min-h-screen max-h-fit overflow-x-hidden`}>
+      <div className={`flex flex-col justify-center items-center min-h-screen max-h-fit overflow-x-hidden`}>
          <div className="w-screen min-h-screen max-h-fit p-10 flex flex-wrap justify-evenly items-center bg-neutral-300">
+            <h1 className={`text-5xl font-semibold p-10 pb-20`}>
+               Library
+            </h1>
+
             {
-               books
-               && books.map((b: IBook) => <BookCard {...b} />)
-               || 'loading...'
+                books
+                && books.map((b: IBook) => <BookCard {...b} />)
+                || 'loading...'
             }
          </div>
       </div>
