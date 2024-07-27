@@ -17,7 +17,7 @@ export default class Cookie {
    }
 
    public static create(key: string, value: string, expiration: number): void {
-      document.cookie = `${key}=${value}; ${this.getCookieExpirationString(expiration)}; path=/`;
+      document.cookie = `${key}=${value}; ${this.getCookieExpirationString(expiration)}; path=/;`;
    }
 }
 

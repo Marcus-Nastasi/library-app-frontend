@@ -16,8 +16,8 @@ export default function Login() {
             headers: new Headers({ 'Content-Type': 'application/json' })
          });
          const parsed: ILogin = await request.json();
-         Cookie.create('libToken', parsed.data[0].token, 12);
-         Cookie.create('cpf', parsed.data[0].cpf, 12);
+         Cookie.create('libToken', parsed.data[0].token, 11);
+         Cookie.create('cpf', parsed.data[0].cpf, 11);
          window.open('/', '_self');
       } catch(e: any) {
          console.log(e.message);
