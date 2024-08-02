@@ -32,20 +32,20 @@ export default function App() {
          <div className="w-screen min-h-screen max-h-fit p-10 pt-1 flex flex-wrap justify-evenly items-center bg-neutral-100">
             <div className={`p-10`}>
                <input
-                   type={'search'}
-                   placeholder={'search books...'}
-                   className={'p-0.5 px-10 border border-slate-950 focus:outline-none'}
-                   style={{ textIndent: '5px' }}
+                  type={'search'}
+                  placeholder={'search books...'}
+                  className={'p-0.5 px-10 border border-slate-950 focus:outline-none'}
+                  style={{ textIndent: '5px' }}
                />
                <button
-                   type={'button'}
-                   className={`px-8 py-0.5 border border-neutral-800 bg-neutral-200 hover:bg-neutral-300`}
+                  type={'button'}
+                  className={`px-8 py-0.5 border border-neutral-800 bg-neutral-200 hover:bg-neutral-300`}
                >
                   Search
                </button>
             </div>
 
-            {books && books.map((b: IBook) => <BookCard {...b} />) || 'loading...' }
+            { books && books.map((b: IBook) => <BookCard {...b} />) || 'loading...' }
          </div>
       </div>
    );
