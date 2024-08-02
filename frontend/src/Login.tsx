@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 import Cookie from "./lib/Cookie";
-import ILogin from "./components/interfaces/ILogin.ts";
+import ILogin from "./interfaces/ILogin.ts";
 
 export default function Login() {
    

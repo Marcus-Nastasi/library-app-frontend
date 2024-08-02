@@ -28,7 +28,7 @@ class App implements IApp {
    }
 
    public listen() {
-      this.app.listen(3000, () => console.log('http://localhost:3000'));
+      this.app.listen(3000, () => console.log('http://localhost:3000/login'));
    }
 }
 new App().listen();
