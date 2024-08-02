@@ -35,7 +35,7 @@ export default function App() {
                <input
                   type={'search'}
                   placeholder={'search books...'}
-                  className={'p-0.5 px-2 mr-2 border-2 border-slate-950 focus:outline-none'}
+                  className={'p-0.5 px-2 mr-2 border-t-2 border-l-2 border-r-2 border-b-2 border-t-neutral-400 border-l-neutral-400 border-b-neutral-800 border-r-neutral-600 focus:outline-none'}
                   style={{ textIndent: '0px' }}
                />
                <Button 
