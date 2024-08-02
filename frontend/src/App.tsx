@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import BookCard from "./components/Books/BookCard";
 import Cookie from "./lib/Cookie";
 import IBook from "./interfaces/IBook.ts";
+import Button from "./components/Button.tsx";
 
 export default function App() {
    const [ books, setBooks ] = useState<Array<IBook> | undefined>();
@@ -12,7 +13,7 @@ export default function App() {
       const getAllBooks = async (): Promise<void> => {
          const url: string = 'http://localhost:8080/api/books/get';
          const token: string | null = Cookie.getCookie('libToken');
-         if (token === null) window.open('/login', "_self");
+         if (token === null) window.open('/login', '_self');
          try {
             const request: Response = await fetch(url, {
                method: 'get',
@@ -34,15 +35,12 @@ export default function App() {
                <input
                   type={'search'}
                   placeholder={'search books...'}
-                  className={'p-0.5 px-10 border border-slate-950 focus:outline-none'}
-                  style={{ textIndent: '5px' }}
+                  className={'p-0.5 px-2 mr-2 border-2 border-slate-950 focus:outline-none'}
+                  style={{ textIndent: '0px' }}
                />
-               <button
-                  type={'button'}
-                  className={`px-8 py-0.5 border border-neutral-800 bg-neutral-200 hover:bg-neutral-300`}
-               >
-                  Search
-               </button>
+               <Button 
+                  text={'Search'} 
+               />
             </div>
 
             { books && books.map((b: IBook) => <BookCard {...b} />) || 'loading...' }

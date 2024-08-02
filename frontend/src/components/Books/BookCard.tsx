@@ -1,4 +1,5 @@
 import IBook from "../../interfaces/IBook.ts";
+import Button from "../Button.tsx";
 
 export default function BookCard(book: IBook) {
    return(
@@ -23,7 +24,7 @@ export default function BookCard(book: IBook) {
 
            <div className={`flex flex-wrap`}>
                <div className={`flex flex-col`}>
-                   <p>Enter</p>
+                  <Button text={'Enter'} />
                </div>
            </div>
        </div>
