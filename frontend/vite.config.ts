@@ -8,7 +8,9 @@ export default defineConfig({
       input: {
          index: 'index.html',
          login: 'pages/login.html',
-         book: 'pages/book_card.html'
+         book: 'pages/book_card.html',
+         rent: 'pages/rent.html',
+         member: 'pages/member.html'
       },
       output: {
          dir: './dist'

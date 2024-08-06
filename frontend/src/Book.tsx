@@ -44,7 +44,7 @@ export default function Book() {
       }    
    };
 
-   const get_url_id = (): number => Number(window.location.href.split('/')[4]);
+   const get_url_id = (): string => window.location.href.split('/')[4];
 
    return(
       <div className=" flex justify-center items-center py-10 h-screen">

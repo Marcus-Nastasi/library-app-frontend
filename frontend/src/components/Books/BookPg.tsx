@@ -34,7 +34,7 @@ export default function BookPg({ book }: any) {
                   <div className="mt-5 mr-5">
                      <Button
                         text={'Rent'} 
-                        funct={null} 
+                        funct={() => window.open(`/rent?new=true&id=${book.id}`, '_self')} 
                      />
                   </div>
                   

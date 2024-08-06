@@ -16,7 +16,7 @@ export default function App() {
    // implement handling errors
 
    useEffect(() => {
-      // fetching books
+      // getting all books
       const getAllBooks = async (): Promise<void> => {
          const url: string = 'http://localhost:8080/api/books/get';
          const token: string | null = Cookie.getCookie('libToken');
@@ -37,10 +37,30 @@ export default function App() {
          }
       };
       getAllBooks();
+
+      const getLibrarian = async () => {
+         const url: string = 'http://localhost:8080/api/librarian/get/cpf';
+         const token: string | null = Cookie.getCookie('libToken');
+         const cpf: string | null = Cookie.getCookie('cpf');
+         if (token === null) window.open('/login', '_self');
+         setLoading(true);
+         try {
+            const request: Response = await fetch(url, {
+               method: 'post',
+               body: JSON.stringify({ cpf: cpf }),
+               headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
+            });
+            const response = await request.json();
+            Cookie.create('librarian_id', response.id, 11);
+         } catch(e: any) {
+            console.log(e.message)
+         }
+      };
+      getLibrarian();
    }, []);
 
-   const searchByName = async (e: any): Promise<void> => {
-      e.preventDefault();
+   // searching books by name
+   const searchByName = async (): Promise<void> => {
       const url: string = `http://localhost:8080/api/books/search/name`;
       const name: any = document.getElementById('searchByName');
       const token: string | null = Cookie.getCookie('libToken');
@@ -73,14 +93,22 @@ export default function App() {
                   className={'p-0.5 px-2 mr-2 border-t-2 border-l-2 border-r-2 border-b-2 border-t-neutral-400 border-l-neutral-400 border-b-neutral-800 border-r-neutral-600 focus:outline-none'}
                   style={{ textIndent: '0px' }}
                />
+
                <Button 
                   text={'Search'}
                   funct={searchByName}
                />
             </div>
 
-            { isBooks && books && books.map((b: IBook) => <BookCard {...b} />) || loading && <Loading />  }
-            { isBooksByName && booksByName && booksByName.map((b: IBook) => <BookCard {...b} />) || loading && <Loading /> }
+            { 
+               isBooks && books && books.map((b: IBook) => <BookCard {...b} />) 
+               || loading && <Loading />
+            }
+
+            { 
+               isBooksByName && booksByName && booksByName.map((b: IBook) => <BookCard {...b} />) 
+               || loading && <Loading /> 
+            }
          </div>
       </div>
    );

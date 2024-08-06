@@ -1,14 +1,17 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 
 import Cookie from "./lib/Cookie";
 import ILogin from "./interfaces/ILogin.ts";
+import Loading from "./components/Loading.tsx";
 
 export default function Login() {
+   const [ loading, setLoading ] = useState<boolean>();
    
    const handleLogin = async (e: any): Promise<void> => {
       e.preventDefault();
       const url: string = `http://localhost:8080/api/auth/login`;
       const [ cpf, password ]: any = [ document.getElementById('cpf'), document.getElementById('password') ];
+      setLoading(true);
       try {
          const request: Response = await fetch(url, {
             method: 'post',
@@ -18,6 +21,7 @@ export default function Login() {
          const parsed: ILogin = await request.json();
          Cookie.create('libToken', parsed.data[0].token, 11);
          Cookie.create('cpf', parsed.data[0].cpf, 11);
+         setLoading(false);
          window.open('/', '_self');
       } catch(e: any) {
          console.log(e.message);
@@ -26,6 +30,8 @@ export default function Login() {
 
    return(
       <div className="min-h-screen max-h-fit w-screen flex justify-center items-center">
+
+         { loading && <Loading /> }
 
          <form className="flex flex-col justify-center items-center h-96 w-5/12 bg-neutral-300">
 
