@@ -7,7 +7,8 @@ export default defineConfig({
    rollupOptions: {
       input: {
          index: 'index.html',
-         login: 'pages/login.html'
+         login: 'pages/login.html',
+         book: 'pages/book_card.html'
       },
       output: {
          dir: './dist'
