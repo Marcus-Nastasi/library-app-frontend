@@ -11,6 +11,8 @@ export default function App() {
    const [ booksByName, setBooksByName ] = useState<Array<IBook> | undefined>();
    const [ isBooksByName, setIsBooksByName ] = useState<boolean>();
 
+   // implement handling errors
+
    useEffect(() => {
       // fetching books
       const getAllBooks = async (): Promise<void> => {
@@ -56,7 +58,7 @@ export default function App() {
 
    return (
       <div className={`flex flex-col justify-center items-center min-h-screen max-h-fit overflow-x-hidden`}>
-         <div className="w-screen min-h-screen max-h-fit p-10 pt-1 flex flex-wrap justify-evenly items-center bg-neutral-100">
+         <div className="w-screen min-h-screen max-h-fit p-10 pt-1 flex flex-col items-center bg-neutral-100">
             <div className={`p-10`}>
                <input
                   id="searchByName"
@@ -71,7 +73,7 @@ export default function App() {
                />
             </div>
 
-            { isBooks && books && books.map((b: IBook) => <BookCard {...b} />) || 'loading...' }
+            { isBooks && books && books.map((b: IBook) => <BookCard {...b} />) }
             { isBooksByName && booksByName && booksByName.map((b: IBook) => <BookCard {...b} />) }
          </div>
       </div>

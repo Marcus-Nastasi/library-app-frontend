@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import IBook from "./interfaces/IBook";
 import Cookie from "./lib/Cookie";
 import BookPg from "./components/Books/BookPg";
+import ErrorBox from "./components/Handlers/ErrorBox";
 
 export default function Book() {
    const [ book, setBook ] = useState<IBook | null>();
+   const [ error, setError ] = useState<boolean>();
+   const [ errorMsg, setErrorMsg ] = useState<string>();
 
    useEffect(() => {
       getBook();
@@ -20,6 +23,16 @@ export default function Book() {
             method: 'get',
             headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
          });
+         if (request.status === 204) {
+            setError(true);
+            setErrorMsg('No content avaliable');
+            return
+         }
+         if (request.status !== 200) {
+            setError(true);
+            setErrorMsg(String(request.status));
+            return
+         }
          const book: IBook = await request.json();
          setBook(book);
       }  catch(e: any) {
@@ -30,9 +43,11 @@ export default function Book() {
    const get_url_id = (): number => Number(window.location.href.split('/')[4]);
 
    return(
-      <>
+      <div className=" flex justify-center items-center py-10 h-screen">
+         { error && <ErrorBox msg={errorMsg} /> }
+         {/* <ErrorBox msg={'mensagem de erro bla bla bla'} /> */}
          { book && <BookPg book={book} /> || 'loading...' }
-      </>      
+      </div>      
    );
 }
 
