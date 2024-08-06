@@ -4,11 +4,13 @@ import IBook from "./interfaces/IBook";
 import Cookie from "./lib/Cookie";
 import BookPg from "./components/Books/BookPg";
 import ErrorBox from "./components/Handlers/ErrorBox";
+import Loading from "./components/Loading";
 
 export default function Book() {
    const [ book, setBook ] = useState<IBook | null>();
    const [ error, setError ] = useState<boolean>();
    const [ errorMsg, setErrorMsg ] = useState<string>();
+   const [ loading, setLoading ] = useState<boolean>();
 
    useEffect(() => {
       getBook();
@@ -18,6 +20,7 @@ export default function Book() {
       const url: string = `http://localhost:8080/api/books/get/${get_url_id()}`;
       const token: string | null = Cookie.getCookie('libToken');
       if (!token) window.open('/login', '_self');
+      setLoading(true);
       try {
          const request: Response = await fetch(url, {
             method: 'get',
@@ -35,6 +38,7 @@ export default function Book() {
          }
          const book: IBook = await request.json();
          setBook(book);
+         setLoading(false);
       }  catch(e: any) {
          console.log(e.message);
       }    
@@ -45,8 +49,7 @@ export default function Book() {
    return(
       <div className=" flex justify-center items-center py-10 h-screen">
          { error && <ErrorBox msg={errorMsg} /> }
-         {/* <ErrorBox msg={'mensagem de erro bla bla bla'} /> */}
-         { book && <BookPg book={book} /> || 'loading...' }
+         { book && <BookPg book={book} /> || loading && <Loading /> }
       </div>      
    );
 }

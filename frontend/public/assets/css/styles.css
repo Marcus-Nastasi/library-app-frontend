@@ -5,3 +5,14 @@
     font-family: "Playfair Display", serif;
 }
 
+/* Loading animation */
+.loading {
+   animation: ldn 1s infinite;
+}
+
+@keyframes ldn {
+   to {
+      transform: rotate(360deg);
+   }
+}
+

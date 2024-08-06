@@ -4,12 +4,14 @@ import BookCard from "./components/Books/BookCard";
 import Cookie from "./lib/Cookie";
 import IBook from "./interfaces/IBook.ts";
 import Button from "./components/Button.tsx";
+import Loading from "./components/Loading.tsx";
 
 export default function App() {
    const [ books, setBooks ] = useState<Array<IBook> | undefined>();
    const [ isBooks, setIsBooks ] = useState<boolean>();
    const [ booksByName, setBooksByName ] = useState<Array<IBook> | undefined>();
    const [ isBooksByName, setIsBooksByName ] = useState<boolean>();
+   const [ loading, setLoading ] = useState<boolean>();
 
    // implement handling errors
 
@@ -19,6 +21,7 @@ export default function App() {
          const url: string = 'http://localhost:8080/api/books/get';
          const token: string | null = Cookie.getCookie('libToken');
          if (token === null) window.open('/login', '_self');
+         setLoading(true);
          try {
             const request: Response = await fetch(url, {
                method: 'get',
@@ -28,6 +31,7 @@ export default function App() {
             setBooks(response);
             setIsBooksByName(false);
             setIsBooks(true);
+            setLoading(false);
          } catch(e: any) {
             console.log(e);
          }
@@ -41,6 +45,7 @@ export default function App() {
       const name: any = document.getElementById('searchByName');
       const token: string | null = Cookie.getCookie('libToken');
       if (token === null) window.open('/login', '_self');
+      setLoading(true);
       try {
          const request: Response = await fetch(url, {
             method: 'post',
@@ -51,6 +56,7 @@ export default function App() {
          setIsBooks(false);
          setIsBooksByName(true);
          setBooksByName(books);
+         setLoading(false);
       } catch(e: any) {
          console.log(e.message);
       }
@@ -73,8 +79,8 @@ export default function App() {
                />
             </div>
 
-            { isBooks && books && books.map((b: IBook) => <BookCard {...b} />) }
-            { isBooksByName && booksByName && booksByName.map((b: IBook) => <BookCard {...b} />) }
+            { isBooks && books && books.map((b: IBook) => <BookCard {...b} />) || loading && <Loading />  }
+            { isBooksByName && booksByName && booksByName.map((b: IBook) => <BookCard {...b} />) || loading && <Loading /> }
          </div>
       </div>
    );

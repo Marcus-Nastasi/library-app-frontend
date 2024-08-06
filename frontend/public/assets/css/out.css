@@ -582,6 +582,10 @@ video {
   top: 2rem;
 }
 
+.top-0 {
+  top: 0px;
+}
+
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
