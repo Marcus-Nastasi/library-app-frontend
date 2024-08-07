@@ -56,7 +56,7 @@ export default function Rent() {
    }
 
    return(
-      <div className="w-screen min-h-screen max-h-fit flex flex-col items-center bg-neutral-100">
+      <div className="w-screen min-h-screen max-h-fit flex flex-col items-center">
          <div className=" p-20">
             <h2 className=" text-4xl font-bold">
                Rents
