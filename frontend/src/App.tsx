@@ -38,6 +38,7 @@ export default function App() {
       };
       getAllBooks();
 
+      // getting librarian ID and saving as a cookie "librarian_id"
       const getLibrarian = async () => {
          const url: string = 'http://localhost:8080/api/librarian/get/cpf';
          const token: string | null = Cookie.getCookie('libToken');
