@@ -1,32 +1,7 @@
-import { useEffect, useState } from "react";
 import Button from "../Button";
 import IMember from "../../interfaces/IMember";
-import Cookie from "../../lib/Cookie";
 
-export default function MembersPg() {
-   const [ members, setMembers ] = useState<Array<IMember>>();
-
-   useEffect(() => {
-      getMembers();
-   }, []);
-
-   const getMembers = async (): Promise<void> => {
-      const url: string = 'http://localhost:8080/api/members/get';
-      const token: string | null = Cookie.getCookie('libToken');
-      if (token === null) window.open('/login', '_self');
-      try {
-         const request: Response = await fetch(url, {
-            method: 'get',
-            headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
-         });
-         const response: Array<IMember> = await request.json();
-         setMembers(response);
-         return
-      } catch(e: any) {
-         console.log(e);
-      }
-   }
-
+export default function MembersPg({ members }: any) {
    return(
       <table className="w-10/12 h-2/6 border-4 border-neutral-400 text-slate-900 bg-neutral-300">
          <thead>

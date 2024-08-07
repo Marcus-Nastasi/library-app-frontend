@@ -910,6 +910,11 @@ video {
   padding-bottom: 5rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -924,6 +929,10 @@ video {
 
 .pt-1 {
   padding-top: 0.25rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
 }
 
 .text-center {
