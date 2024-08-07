@@ -3,9 +3,9 @@ export default interface IMember {
    name: string,
    cpf: string,
    type: string,
-   date_of_membership: Date,
-   books_issued: number,
-   books_limit: number,
+   dateOfMembership: Date,
+   booksIssued: number,
+   booksLimit: number,
    phone: string
 }
 

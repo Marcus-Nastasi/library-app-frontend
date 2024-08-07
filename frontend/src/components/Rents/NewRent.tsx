@@ -3,13 +3,12 @@ import Button from '../Button';
 import { useEffect, useState } from 'react';
 import Cookie from '../../lib/Cookie';
 
-export default function NewRent({ bkId, closeFunct }: any) {
+export default function NewRent({ bkId, close }: any) {
    const [ librarianId, setLibrarianId ] = useState<string | null>();
    const [ bookId, setBookId ] = useState<string>();
 
    useEffect(() => {
       setLibrarianId(Cookie.getCookie('librarian_id'));
-      bkId && setBookId(bkId);
    });
 
    return(
@@ -17,7 +16,7 @@ export default function NewRent({ bkId, closeFunct }: any) {
 
          <div className="w-8/12 h-fit flex flex-col justify-center items-center border border-slate-950 bg-neutral-300">
             <div className=' p-5 self-end'>
-               <FaX size={30} onClick={closeFunct} />
+               <FaX size={30} onClick={close} />
             </div>
 
             <div className=' mb-14'>
@@ -27,9 +26,10 @@ export default function NewRent({ bkId, closeFunct }: any) {
                      className=' mb-5' 
                      type="text" 
                      name="book_id" 
-                     id="book_id" 
-                     value={bookId && bookId} 
-                      
+                     id="book_id"
+                     placeholder={bkId}
+                     value={bookId}
+                     onChange={(e) => setBookId(e.target.value)}
                   />
 
                   <label htmlFor="librarian_id">Librarian:</label>

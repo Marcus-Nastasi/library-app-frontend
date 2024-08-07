@@ -1,36 +1,31 @@
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import IMember from "../../interfaces/IMember";
+import Cookie from "../../lib/Cookie";
 
 export default function MembersPg() {
    const [ members, setMembers ] = useState<Array<IMember>>();
 
    useEffect(() => {
-      setMembers(mbm);
-   }, [])
+      getMembers();
+   }, []);
 
-   const mbm: Array<IMember> = [
-      {
-         id: 1,
-         name: 'Josh',
-         cpf: "123.456.789-0",
-         type: "STUDANT",
-         date_of_membership: new Date(),
-         books_issued: 1,
-         books_limit: 2,
-         phone: "11 92390293022"
-      },
-      {
-         id: 2,
-         name: 'Logan',
-         cpf: "123.456.789-1",
-         type: "STUDANT",
-         date_of_membership: new Date(),
-         books_issued: 1,
-         books_limit: 2,
-         phone: "11 92390293022"
+   const getMembers = async (): Promise<void> => {
+      const url: string = 'http://localhost:8080/api/members/get';
+      const token: string | null = Cookie.getCookie('libToken');
+      if (token === null) window.open('/login', '_self');
+      try {
+         const request: Response = await fetch(url, {
+            method: 'get',
+            headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
+         });
+         const response: Array<IMember> = await request.json();
+         setMembers(response);
+         return
+      } catch(e: any) {
+         console.log(e);
       }
-   ];
+   }
 
    return(
       <table className="w-10/12 h-2/6 border-4 border-neutral-400 text-slate-900 bg-neutral-300">
@@ -74,13 +69,13 @@ export default function MembersPg() {
                            {m.cpf}
                         </td>
                         <td className=" border-2 p-3 border-slate-100">
-                           {String(m.date_of_membership)}
+                           {String(m.dateOfMembership)}
                         </td>
                         <td className=" border-2 p-3 border-slate-100">
-                           {m.books_issued}
+                           {m.booksIssued}
                         </td>
                         <td className=" border-2 p-3 border-slate-100">
-                           {m.books_limit}
+                           {m.booksLimit}
                         </td>
                         <td className=" border-2 p-3 border-slate-100">
                            {m.phone}

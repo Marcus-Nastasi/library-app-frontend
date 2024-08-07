@@ -3,20 +3,37 @@ import Button from "./components/Button";
 import RentsTable from "./components/Rents/RentsTable";
 import IRent from "./interfaces/IRent";
 import NewRent from "./components/Rents/NewRent";
+import Cookie from "./lib/Cookie";
 
 export default function Rent() {
+   const [ rents, setRents ] = useState<Array<IRent>>();
    const [ bookId, setBookId ] = useState<string | null>();
    const [ newRent, setNewRent ] = useState<string>('hidden');
 
    useEffect(() => {
       if (HandleViewNewRent.getNewRent() == 'true') setNewRent('');
-      if (window.location.href.match(/['id']/g)) {
-         setBookId(getBookId());
+      if (window.location.href.match(/['id']/g)) setBookId(getBookId());
+
+      const getRents = async () => {
+         const url: string = 'http://localhost:8080/api/rents/get';
+         const token: string | null = Cookie.getCookie('libToken');
+         if (token === null) window.open('/login', '_self');
+         try {
+            const request: Response = await fetch(url, {
+               method: 'get',
+               headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
+            });
+            const response: Array<IRent> = await request.json();
+            setRents(response);
+            return
+         } catch(e: any) {
+            console.log(e);
+         }
       };
+      getRents();
    });
 
    class HandleViewNewRent {
-
       static getNewRent = (): string | null => {
          if (!window.location.href.match(/['id']/g)) return window.location.href.split('?')[1].split('=')[1];
          return window.location.href.split('?')[1].split('&')[0].split('=')[1];
@@ -38,25 +55,6 @@ export default function Rent() {
       return window.location.href.split('?')[1].split('&')[1].split('=')[1];
    }
 
-   const rnt: Array<IRent> = [
-      {
-         id: 1,
-         book_id: 3,
-         emit_date: new Date(),
-         return_date: new Date(),
-         librarian_id: 'mksdcmkdscmksdmcksd',
-         member_id: 1
-      },
-      {
-         id: 1,
-         book_id: 3,
-         emit_date: new Date(),
-         return_date: new Date(),
-         librarian_id: 'mksdcmkdscmksdmcksd',
-         member_id: 1
-      }
-   ];
-
    return(
       <div className="w-screen min-h-screen max-h-fit flex flex-col items-center bg-neutral-100">
          <div className=" p-20">
@@ -68,7 +66,7 @@ export default function Rent() {
          <div className={`${newRent}`}>
             <NewRent 
                bkId={bookId && bookId} 
-               closeFunct={HandleViewNewRent.close} 
+               close={HandleViewNewRent.close}
             />
          </div>
 
@@ -80,7 +78,7 @@ export default function Rent() {
          </div>
 
          <div className="flex justify-center">
-            <RentsTable rent={rnt} />
+            <RentsTable rent={rents} />
          </div>
       </div>
    );
