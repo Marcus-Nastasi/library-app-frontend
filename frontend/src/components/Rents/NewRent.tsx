@@ -9,7 +9,7 @@ export default function NewRent({ bkId, closeFunct }: any) {
 
    useEffect(() => {
       setLibrarianId(Cookie.getCookie('librarian_id'));
-      setBookId(bkId);
+      bkId && setBookId(bkId);
    });
 
    return(
@@ -28,14 +28,23 @@ export default function NewRent({ bkId, closeFunct }: any) {
                      type="text" 
                      name="book_id" 
                      id="book_id" 
-                     value={bookId} 
+                     value={bookId && bookId} 
                       
                   />
 
                   <label htmlFor="librarian_id">Librarian:</label>
                   <input className=' mb-5' type="text" name="librarian_id" id="librarian_id" value={String(librarianId)} />
 
-                  <label htmlFor="member_id">Member</label>
+                  <div className='flex justify-between'>
+                     <label htmlFor="member_id">Member</label> 
+                     <a
+                        onClick={() => window.open('/members')} 
+                        className=' text-blue-500 hover:text-blue-800 hover:cursor-pointer'
+                     >
+                        find member
+                     </a>
+                  </div>
+
                   <input className=' mb-5' type="text" name="member_id" id="member_id" />
 
                   <Button text={'Enter'} funct={null} />

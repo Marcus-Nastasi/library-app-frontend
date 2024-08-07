@@ -30,7 +30,7 @@ export default function RentsTable({ rent }: any) {
             {
                rent ? rent.map((r: IRent) => {
                   return(
-                     <tr>
+                     <tr key={r.id}>
                         <td className=" border-2 p-3 border-slate-100">
                            {r.id}
                         </td>

@@ -19,7 +19,7 @@ router.get('/book/:id', BookController.render);
 router.get('/rent', Rent.render);
 
 // member
-router.get('/member', Member.render);
+router.get('/members', Member.render);
 
 export default router;
 
